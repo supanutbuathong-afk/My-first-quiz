@@ -1,0 +1,120 @@
+/* 1. 🖼️ Style สำหรับ Body (กำหนดพื้นหลังและ Layout) */
+body {
+    background-image: url('https://i.postimg.cc/Pr8RSdgB/Lucid-Origin-Four-distinct-gamer-characters-each-representing-0.jpg'); 
+    background-size: cover;          /* ทำให้ภาพคลุมพื้นที่ body ทั้งหมด */
+    background-position: center;     /* จัดภาพให้อยู่กึ่งกลาง */
+    background-repeat: no-repeat;    /* ไม่ทำซ้ำภาพ */
+    
+    /* 📐 การจัด Layout ให้เนื้อหาอยู่ตรงกลางจอ */
+    min-height: 100vh;               
+    display: flex;                   
+    justify-content: center;         /* กึ่งกลางแนวนอน */
+    align-items: center;             /* กึ่งกลางแนวตั้ง */
+} 
+
+/* 2. 🛡️ Style สำหรับเงาข้อความ (ทำให้ข้อความอ่านง่ายบนภาพพื้นหลัง) */
+.text-shadow-md {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+/* 3. 🆕 Style สำหรับ Div บังจอสีขาว (เราใช้ ID ใน HTML แต่ใส่ style ที่นี่) */
+#white-overlay {
+    z-index: 5; /* ทำให้ Div นี้ลอยอยู่เหนือภาพพื้นหลัง แต่ใต้ Quiz Content */
+}
+
+/* ให้ overlay เป็นแผ่นสีขาวโปร่งเล็กน้อยและมีการ transition */
+#white-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(2px);
+    transition: opacity 0.45s ease;
+    opacity: 0; /* ถูกควบคุมจากคลาสใน HTML/Tailwind */
+    pointer-events: none;
+}
+
+/* Quiz container: จัดให้อยู่กึ่งกลางและมีขนาดเหมาะสม */
+#quiz-container {
+    position: relative;
+    z-index: 20;
+    width: 95%;
+    max-width: 760px;
+    margin: 1rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 4. 🎨 Style พื้นฐานสำหรับ Element ย่อย (เพื่อความสะอาดของโค้ด) */
+/* Class สำหรับกล่องคำถาม/ผลลัพธ์ */
+.quiz-card-style {
+    background-color: rgba(255,255,255,0.92);
+    padding: 1.25rem 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 12px 30px rgba(2,6,23,0.35);
+    border: 1px solid rgba(255,255,255,0.6);
+    backdrop-filter: blur(6px);
+}
+
+/* Class สำหรับปุ่มคำตอบพื้นฐาน */
+.button-base-style {
+    width: 100%;
+    padding: 0.75rem;
+    margin: 0.5rem 0;
+    color: #ffffff;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+/* ปรับหัวข้อและคำบรรยายบนหน้าจอเริ่ม */
+#start-screen h1 {
+    font-size: 1.9rem;
+    color: #fff;
+    margin-bottom: 0.25rem;
+}
+#start-screen p {
+    color: rgba(255,255,255,0.9);
+}
+
+/* ปุ่มเริ่ม (เน้นสีและเงา) */
+#ปุ่มเริ่ม, #restart-btn {
+    background: linear-gradient(135deg,#7c3aed 0%,#6d28d9 100%);
+    border: none;
+    color: white;
+    padding: 0.9rem 1.6rem;
+    border-radius: 999px;
+    font-size: 1.05rem;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(109,40,217,0.25);
+    transform: translateZ(0);
+}
+#ปุ่มเริ่ม:hover, #restart-btn:hover { transform: translateY(-3px) scale(1.02); }
+
+/* ปุ่มคำตอบ: ใช้คลาสพื้นฐานแต่เพิ่มการแสดงผล */
+#answer-buttons button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.9rem 1rem;
+    margin: 0.5rem 0;
+    border-radius: 0.6rem;
+    font-weight: 600;
+    box-shadow: 0 6px 18px rgba(2,6,23,0.12);
+    transition: transform 180ms ease, box-shadow 180ms ease, opacity 180ms ease;
+}
+#answer-buttons button:hover:not([disabled]){ transform: translateY(-3px); box-shadow: 0 12px 28px rgba(2,6,23,0.14); }
+#answer-buttons button[disabled]{ opacity: 0.7; cursor: default; transform: none; }
+
+/* Result styles */
+#result-display { width: 100%; }
+#result-type { color: #5b21b6; font-weight: 800; }
+#result-message { color: #2a2a2a; }
+
+/* ปรับให้ responsive */
+@media (min-width: 768px){
+    #start-screen h1 { font-size: 2.25rem; }
+    .quiz-card-style { padding: 2rem; }
+}

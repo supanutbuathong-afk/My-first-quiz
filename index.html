@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang = "th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="white-overlay" class="absolute inset-0 bg-white transition-opacity duration-500 opacity-0">
+</div>
+
+<div id="quiz-container" 
+     class="w-full max-w-lg text-center z-10 p-4 transform -translate-y-10"> 
+  <div id="start-screen"> 
+    <h1 class="text-3xl font-extrabold mb-3 text-white text-shadow-md">เเบบทดสอบความเป็นเกมเมอร์ในตัวคุณ</h1>
+    <p class="mb-8 text-gray-200 text-shadow-sm">ตอบคำถามอย่างจริงใจเพื่อรับรู้บุคลิกภาพเกมเมอร์ของคุณ</p>
+    <button id="ปุ่มเริ่ม" 
+            class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-4 px-10 rounded-full shadow-2xl transition duration-500 text-xl tracking-wide transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-purple-300">
+        คลิกเพื่อเริ่ม
+    </button>
+</div>
+  <div id="quiz-content" class="hidden"> 
+    <div id="question-area" class="quiz-card-style mt-4"> 
+        <div id ="question-text" class="text-xl font-semibold mb-6 text-gray-800"></div>
+        <div id ="answer-buttons" class="grid grid-cols-1 gap-4 mt-8"></div>
+    </div>
+  </div>
+
+  <!-- result เป็นพี่น้องของ quiz-content ภายใน quiz-container -->
+  <div id="result-display" class="quiz-card-style hidden text-left mt-4">
+      <h2 id="result-type" class="text-3xl font-extrabold mb-2 text-purple-600"></h2>
+      <p id="result-message" class="text-gray-700 leading-relaxed"></p>
+      <div class="mt-4 text-center">
+        <button id="restart-btn" class="hidden bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-full shadow-md transition duration-300 text-lg">
+          เริ่มใหม่
+        </button>
+      </div>
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
