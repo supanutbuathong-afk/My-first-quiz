@@ -1,120 +1,291 @@
-/* 1. 🖼️ Style สำหรับ Body (กำหนดพื้นหลังและ Layout) */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Kanit', sans-serif; /* แนะนำให้ใช้ Font Kanit จะดูทันสมัยขึ้นครับ */
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* --- 1. Body & Background --- */
 body {
-    background-image: url('https://i.postimg.cc/Pr8RSdgB/Lucid-Origin-Four-distinct-gamer-characters-each-representing-0.jpg'); 
-    background-size: cover;          /* ทำให้ภาพคลุมพื้นที่ body ทั้งหมด */
-    background-position: center;     /* จัดภาพให้อยู่กึ่งกลาง */
-    background-repeat: no-repeat;    /* ไม่ทำซ้ำภาพ */
+    min-height: 100vh;
+    /* ใส่รูปพื้นหลังแนวตั้งที่คุณได้มา */
+    background-image: url('img/Copilot_20260422_091537.png'); 
+    background-size: cover;/* ปรับขนาดให้เต็มหน้าจอ */
+    background-position: bottom center; /* สำคัญ: ให้ภูเขาและตัวละครชิดขอบล่าง */
+    background-repeat: no-repeat;/* ป้องกันการซ้ำของภาพ */
     
-    /* 📐 การจัด Layout ให้เนื้อหาอยู่ตรงกลางจอ */
-    min-height: 100vh;               
-    display: flex;                   
-    justify-content: center;         /* กึ่งกลางแนวนอน */
-    align-items: center;             /* กึ่งกลางแนวตั้ง */
-} 
-
-/* 2. 🛡️ Style สำหรับเงาข้อความ (ทำให้ข้อความอ่านง่ายบนภาพพื้นหลัง) */
-.text-shadow-md {
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+    display: flex;/* ใช้ Flexbox เพื่อจัดเนื้อหาให้อยู่ตรงกลาง */
+    justify-content: center; /* จัดกลางแนวนอน */
+    align-items: flex-start; /* ให้เนื้อหาเริ่มจากด้านบน (ท้องฟ้า) */
+    padding-top: 15vh;      /* เว้นระยะจากขอบบนลงมา 15% ของความสูงจอ */
+    overflow-x: hidden;
+    box-sizing: border-box;
 }
 
-/* 3. 🆕 Style สำหรับ Div บังจอสีขาว (เราใช้ ID ใน HTML แต่ใส่ style ที่นี่) */
-#white-overlay {
-    z-index: 5; /* ทำให้ Div นี้ลอยอยู่เหนือภาพพื้นหลัง แต่ใต้ Quiz Content */
+
+
+/* --- 2. Container --- */
+.quiz-container {
+    width: 90%;
+    max-width: 900px;
+    text-align: center;/* จัดข้อความให้อยู่ตรงกลาง */
+    z-index: 10;
+    /* เพิ่ม Fade-in Animation เมื่อเปิดหน้าเว็บ */
+    
 }
 
-/* ให้ overlay เป็นแผ่นสีขาวโปร่งเล็กน้อยและมีการ transition */
-#white-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(255,255,255,0.6);
-    backdrop-filter: blur(2px);
-    transition: opacity 0.45s ease;
-    opacity: 0; /* ถูกควบคุมจากคลาสใน HTML/Tailwind */
-    pointer-events: none;
-}
-
-/* Quiz container: จัดให้อยู่กึ่งกลางและมีขนาดเหมาะสม */
-#quiz-container {
-    position: relative;
-    z-index: 20;
-    width: 95%;
-    max-width: 760px;
-    margin: 1rem;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* 4. 🎨 Style พื้นฐานสำหรับ Element ย่อย (เพื่อความสะอาดของโค้ด) */
-/* Class สำหรับกล่องคำถาม/ผลลัพธ์ */
-.quiz-card-style {
-    background-color: rgba(255,255,255,0.92);
-    padding: 1.25rem 1.5rem;
-    border-radius: 1rem;
-    box-shadow: 0 12px 30px rgba(2,6,23,0.35);
-    border: 1px solid rgba(255,255,255,0.6);
-    backdrop-filter: blur(6px);
-}
-
-/* Class สำหรับปุ่มคำตอบพื้นฐาน */
-.button-base-style {
-    width: 100%;
-    padding: 0.75rem;
-    margin: 0.5rem 0;
+/* --- 3. Text Styling (หน้าเริ่ม) --- */
+.start-screen h1 {
+    font-size: 2.2rem;
     color: #ffffff;
-    font-weight: 600;
-    border-radius: 0.5rem;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+    /* ใส่เงาเล็กน้อยเพื่อให้ตัวหนังสือสีขาวเด่นบนท้องฟ้า */
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* ปรับหัวข้อและคำบรรยายบนหน้าจอเริ่ม */
-#start-screen h1 {
-    font-size: 1.9rem;
-    color: #fff;
-    margin-bottom: 0.25rem;
-}
-#start-screen p {
-    color: rgba(255,255,255,0.9);
+.start-screen p {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 2.5rem;
 }
 
-/* ปุ่มเริ่ม (เน้นสีและเงา) */
-#ปุ่มเริ่ม, #restart-btn {
-    background: linear-gradient(135deg,#7c3aed 0%,#6d28d9 100%);
-    border: none;
+/* --- 4. ปุ่มเริ่ม (Start Button) --- */
+.btn-primary {
+    background-color: #8b5cf6; /* สีม่วงแนวเว็บ MBTI */
     color: white;
-    padding: 0.9rem 1.6rem;
-    border-radius: 999px;
-    font-size: 1.05rem;
+    padding: 1rem 2.5rem;
+    border: none;
+    border-radius: 50px; /* ทรงมนยาว */
+    font-size: 1.2rem;
+    font-weight: bold;
     cursor: pointer;
-    box-shadow: 0 8px 20px rgba(109,40,217,0.25);
-    transform: translateZ(0);
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
 }
-#ปุ่มเริ่ม:hover, #restart-btn:hover { transform: translateY(-3px) scale(1.02); }
 
-/* ปุ่มคำตอบ: ใช้คลาสพื้นฐานแต่เพิ่มการแสดงผล */
-#answer-buttons button {
-    display: block;
-    width: 100%;
-    text-align: left;
-    padding: 0.9rem 1rem;
-    margin: 0.5rem 0;
-    border-radius: 0.6rem;
-    font-weight: 600;
-    box-shadow: 0 6px 18px rgba(2,6,23,0.12);
-    transition: transform 180ms ease, box-shadow 180ms ease, opacity 180ms ease;
+.btn-primary:hover {
+    background-color: #7c3aed;
+    transform: translateY(-3px); /* ลอยขึ้นนิดนึงเวลาจี้ */
+    box-shadow: 0 15px 25px rgba(139, 92, 246, 0.4);
 }
-#answer-buttons button:hover:not([disabled]){ transform: translateY(-3px); box-shadow: 0 12px 28px rgba(2,6,23,0.14); }
-#answer-buttons button[disabled]{ opacity: 0.7; cursor: default; transform: none; }
 
-/* Result styles */
-#result-display { width: 100%; }
-#result-type { color: #5b21b6; font-weight: 800; }
-#result-message { color: #2a2a2a; }
+.btn-primary:active {
+    transform: translateY(0);
+}
 
-/* ปรับให้ responsive */
-@media (min-width: 768px){
-    #start-screen h1 { font-size: 2.25rem; }
-    .quiz-card-style { padding: 2rem; }
+#quiz-content {
+    display: flex;
+    justify-content: center; /* จัดกลางแนวนอน */
+    align-items: center;     /* จัดกลางแนวตั้ง */
+    min-height: 80vh;        /* ให้พื้นที่ส่วนนี้สูงเกือบเต็มจอ */
+    padding: 20px;           /* กันไว้ไม่ให้กล่องติดขอบจอเกินไปในมือถือ */
+}
+
+
+/* --- กล่องคำถาม (ตัวลูกที่รับหน้าที่ตกแต่ง) --- */
+.question-area {
+    width: 95%;        /* ให้กล่องคำถามกว้าง 95% ของพื้นที่ที่มี เพื่อให้มีขอบด้านข้างเล็กน้อย */      
+    max-width: 800px;        /* แต่ไม่ให้กว้างเกิน 800px เพื่อความสวยงามบนจอใหญ่ */
+    min-height: 200px;       /* บังคับเลยว่า กล่องนี้ห้ามเตี้ยกว่า 400px นะ! */
+    padding: 3rem 2rem;      /* กลับมาใช้ Padding แค่พองาม ไว้กันเนื้อหาชนขอบ */
+    background: rgba(255, 255, 255, 0.85);/* พื้นหลังสีขาวโปร่งแสง ให้เห็นภาพพื้นหลังเล็กน้อย */
+    border-radius: 24px;/* ขอบโค้งมนแบบสวยงาม */
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);/* เงาใหญ่ๆ ให้กล่องดูเด่นและมีมิติ */
+    
+    /* เพิ่ม 2 บรรทัดนี้ เพื่อจัดระเบียบเนื้อหาข้างใน (คำถามอยู่บน ปุ่มอยู่ล่าง) */
+    display: flex;/* ใช้ Flexbox เพื่อจัดเรียงเนื้อหาในกล่อง */
+    flex-direction: column; /* ให้เรียงจากบนลงล่าง */
+    justify-content: space-between; /* ให้คำถามอยู่บนสุด ปุ่มอยู่ล่างสุด และมีพื้นที่ว่างระหว่างกัน */
+    align-items: center; /* จัดกลางแนวนอนภายในกล่อง */
+}
+
+/* แต่งหัวข้อคำถามให้เด่นขึ้นมานิดนึง */
+.question-text {
+    color: #9c2dc2;
+ text-align: center;
+    font-size: 1.3rem;
+    font-weight: bold;
+    line-height: 1.5;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);/* เงาเล็กน้อยเพื่อให้ตัวหนังสือเด่นขึ้นบนพื้นหลังโปร่งแสง */
+   
+}
+
+.answer-buttons {
+    display: flex;
+    justify-content: center; /* ให้ปุ่มอยู่ตรงกลาง */
+    gap: 20px;               /* ระยะห่างระหว่างปุ่ม 2 อัน */
+    margin-top: 2rem;    /* ดันให้ห่างจากข้อความคำถามด้านบน */
+    
+}
+
+/* --- 1. คลาสปุ่มพื้นฐาน (รูปร่าง, แอนิเมชัน) --- */
+.quiz-btn {
+    padding: 12px 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 50px; /* ขอบโค้งมนแบบแคปซูล */
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15); /* เงาบางๆ ให้ปุ่มดูลอยขึ้นมา */
+    
+    /* หัวใจของแอนิเมชัน: บอกว่าถ้ามีการเปลี่ยนแปลง ให้ใช้เวลา 0.3 วิ แบบนุ่มนวล */
+    transition: all 0.3s ease; 
+}
+
+/* --- 2. เอฟเฟกต์ตอนชี้ (Hover) และตอนคลิก (Active) --- */
+.quiz-btn:hover {
+    transform: scale(1.05); /* ชี้แล้วขยายขึ้น 5% */
+    box-shadow: 0 6px 15px rgba(0,0,0,0.25); /* เงาเข้มขึ้น */
+}
+
+.quiz-btn:active {
+    transform: scale(0.95); /* ตอนกดคลิกค้างไว้ ให้ยุบลงไป 5% (เหมือนเด้ง) */
+}
+
+/* --- 3. คลาสเฉพาะสี (เห็นด้วย / ไม่เห็นด้วย) --- */
+.btn-agree {
+    background-color: #2ecc71; /* สีเขียว */
+}
+.btn-agree:hover {
+    background-color: #27ae60; /* สีเขียวเข้มขึ้นตอนชี้ */
+}
+
+.btn-disagree {
+    background-color: #e74c3c; /* สีแดง */
+}
+.btn-disagree:hover {
+    background-color: #c0392b; /* สีแดงเข้มขึ้นตอนชี้ */
+}
+
+
+.btn-selected {
+    background-color: #16a34a; /* เขียวเข้ม หรือแดงเข้มก็ได้ */
+    opacity: 1;
+}
+
+.btn-disabled {
+    background-color: #ff1d1d;
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+
+.result-display{
+    display: flex;/* ใช้ Flexbox เพื่อจัดเรียงเนื้อหาในกล่อง */
+    flex-direction: column; /* ให้เรียงจากบนลงล่าง */
+    justify-content: center; /* ให้คำถามอยู่บนสุด ปุ่มอยู่ล่างสุด และมีพื้นที่ว่างระหว่างกัน */
+    align-items: center; /* จัดกลางแนวนอนภายในกล่อง */
+    gap: 20px;/* ระยะห่างระหว่างหัวข้อ รูป และข้อความ */
+    padding: 4rem 1rem; /* เพิ่มพื้นที่บน-ล่างให้เยอะหน่อย จะช่วยให้กล่องดูอยู่กลางจอมากขึ้น */
+   min-height: 80vh; /* สั่งให้กล่องแม่สูงเต็มจอ จะได้มีที่ให้ลูกอยู่ตรงกลาง */
+}
+
+
+
+/* --- ตกแต่งข้อความในหน้าสรุป --- */
+.result-title {
+    color: #8224ce; /* สมมติให้หัวข้อผลลัพธ์เป็นสีเขียวเด่นๆ */
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.result-desc {
+    color: #b43bff;
+    font-size: 1.2rem;
+    text-align: center;
+    line-height: 1.6;
+    max-width: 600px; /* บีบไม่ให้ข้อความยาวทะลุขอบจอเกินไป จะได้อ่านง่าย */
+}
+
+/* --- ตกแต่งรูปภาพ --- */
+#result-img {
+    max-width: 100%;    /* รูปจะไม่ล้นกรอบ */
+    max-height: 250px;  /* จำกัดความสูงไม่ให้รูปใหญ่คับจอเกินไป */
+}
+/* --- 5. Animations --- */
+
+
+/* แล้วเพิ่ม animation ทั้ง 4 แบบข้างล่าง */
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(40px); }    /* 40pxคือเลื่อนลงเพราะยิ่งเลขเยอะพื้นที่จะเพิ่มเลยลงมาอีกทีตัวอื่นก้เหมือนกัน  เลขเยอะจะลงล่างกับขวาเพิ่ม */
+    to   { opacity: 1; transform: translateY(0); } 
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-40px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideFromRight {
+    from { opacity: 0; transform: translateX(60px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideToLeft {
+    from { opacity: 1; transform: translateX(0); }
+    to   { opacity: 0; transform: translateX(-60px); }
+}
+
+/* class ที่ JS จะเรียกใช้ */
+.anim-slideUp {
+    animation: slideUp 0.8s ease-out;     /*การใช้สูตรในkeyframต้องเรียกใช้ผ่านanimationเสมอ และกำหนดระยะเวลาและรูปแบบการเคลื่อนไหวด้วย*/
+}
+.anim-slideDown {
+    animation: slideDown 0.8s ease-out;
+}
+.anim-slideFromRight {
+    animation: slideFromRight 0.4s ease-out;
+}
+.anim-slideToLeft {
+    animation: slideToLeft 0.3s ease-out forwards;
+}
+/* forwards คือให้ค้างไว้ที่ท้าย animation ไม่กระโดดกลับ */
+
+@media (max-width: 600px) {
+
+    /* 1. เปลี่ยนรูปพื้นหลัง */
+    body {
+        background-image: url('img/Copilot_20260422_084947.png');
+        padding-top: 8vh; /* ลด padding บนลง */
+    }
+
+    /* 2. ลดขนาดหัวข้อหน้าแรก */
+    .start-screen h1 {
+        font-size: 1.5rem;
+    }
+
+    .start-screen p {
+        font-size: 1rem;
+    }
+
+    /* 3. ลดขนาดตัวหนังสือคำถาม */
+    .question-text {
+        font-size: 1rem;
+    }
+
+    /* 4. ปุ่มคำตอบเรียงบนล่างแทน */
+    .answer-buttons {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    /* 5. ลดขนาดปุ่ม */
+    .quiz-btn {
+        font-size: 1rem;
+        padding: 10px 20px;
+    }
+
+    /* 6. ลด padding กล่องคำถาม */
+    .question-area {
+        padding: 2rem 1rem;
+    }
 }
